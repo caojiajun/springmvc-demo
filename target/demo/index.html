@@ -1,0 +1,33 @@
+<html>
+<body>
+<h2>Welcome!</h2>
+用户搜索：<input type="text" id="key" name="key"><input type="button" id="search" value="搜索"><br>
+<div id="result"></div>
+<h3><a href="user/list">所有用户</a></h3><br>
+</body>
+</html>
+
+<script src="jquery-2.2.2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+       $("#search").click(function() {
+           $.get("user/json/users/like?key=" + $("#key").val(), function(data, status){
+               obj = eval(data);
+               var table = "<table border='1'>" +
+                           "<tr>" +
+                           "<th>User Id</th>" +
+                           "<th>User Name</th> " +
+                           "</tr>";
+               for(var i=0; i<obj.length; i++) {
+                   table += "<tr>" +
+                            "<td>" + obj[i].id + "</td>" +
+                            "<td>" + obj[i].name + "</td>" +
+                            "</tr>";
+               }
+               table += "</table><br>";
+               $("#result").html(table);
+           })
+       })
+    });
+
+</script>
